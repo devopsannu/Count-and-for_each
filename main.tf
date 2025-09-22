@@ -14,45 +14,45 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "RG1" {
   count    = 3
-  name     = "dev-001"                       # 1st seniro Only with count
+  name     = "dev-001"                       # 1st Scenario Only with count
   location = "east us"
 }
 
 resource "azurerm_resource_group" "RG2" {
   count    = 3
-  name     = count.index                   # 2nd seniro with count.index 
+  name     = count.index                   # 2nd Scenario with count.index 
   location = "east   us"
 }
 
 resource "azurerm_resource_group" "RG3" {
   count    = 3
-  name     = "oves${count.index}"             # 3rd seniro  with string interpolation       
+  name     = "anupam${count.index}"             # 3rd Scenario  with string interpolation       
   location = "east us"
 }
 
 resource "azurerm_resource_group" "RG4" {
   count    = 3
-  name     = var.rgname[count.index]             # 4th seniro Only with variable
+  name     = var.rgname[count.index]             # 4th Scenario Only with variable
   location = "east us"
 }
 
 variable "rgname" {
-  default = ["Shabbir", "Oves", "Mulla"]
+  default = ["Shabbir", "lala", "Mulla"]
 }
 
 resource "azurerm_resource_group" "RG5" {
   count    = length(var.rgname)
-  name     = var.rgname[count.index]              # 5th seniro  with variable and lenght
+  name     = var.rgname[count.index]              # 5th Scenario  with variable and lenght
   location = "east us"
 }
 
 variable "rgname" {
-  default = ["Shabbir", "Oves", "Mulla", "Gaurav"]
+  default = ["Shabbir", "pala", "Mulla", "Gaurav"]
 }
-
+####### here for_each started####
 resource "azurerm_resource_group" "RG6" {
   for_each = toset(var.rgname)
-  name     = each.key                                   # 1th seniro  with toset 
+  name     = each.key                                   # 1th Scenario  with toset 
   location = "east us"
 }
 
@@ -64,13 +64,13 @@ variable "rgname" {
 
 resource "azurerm_resource_group" "RG7" {
   for_each = tomap(var.rgname)
-  name     = each.key                                   # 2 nd seniro with tomap
+  name     = each.key                                   # 2 nd Scenario with tomap
   location = each.value
 }
 
 variable "rgname" {
   default = {
-    "Oves"= "east us" 
+    "lala"= "east us" 
     "mulla"= "west us"
     "shabbir" = "central india"
     "himanshu" = "east us"
@@ -79,7 +79,7 @@ variable "rgname" {
 
 resource "azurerm_resource_group" "RG" {
   for_each = var.rgname
-  name     = each.value.name                          # 3th   seniro  with nested map
+  name     = each.value.name                          # 3th   Scenario  with nested map
   location = each.value.location
 }
 
